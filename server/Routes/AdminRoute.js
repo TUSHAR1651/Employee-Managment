@@ -75,14 +75,37 @@ router.post("/add_category", (req, res) => {
     });
 });
 router.get("/employees", (req, res) => {
-    db.query("SELECT * FROM employees", (err, result) => {
+  const query = "SELECT employees.id, employees.name, employees.email, employees.salary, employees.address, categories.name as category FROM employees INNER JOIN categories ON employees.category_id = categories.id";
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.send({ error: "Database error" });
+    }
+    return res.send({ message: "Employees fetched successfully!", employees: result });
+  });
+});
+router.delete("/delete_employee/:id", (req, res) => {
+    const id = req.params.id;
+    db.query("DELETE FROM employees WHERE id = ?", id, (err, result) => {
         if (err) {
             console.error(err);
             return res.send({ error: "Database error" });
         }
-        return res.send({ message: "Employees fetched successfully!", employees: result });
+        return res.send({ message: "Employee deleted successfully!" });
     });
 });
+router.post("/update_employee", (req, res) => {
+    const { id, name, email, salary, address, category_id } = req.body;
+    db.query("UPDATE employees SET name = ?, email = ?, salary = ?, address = ?, category_id = ? WHERE id = ?", [name, email, salary, address, category_id, id], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.send({ error: "Database error" });
+        }
+        return res.send({ message: "Employee updated successfully!" });
+    });
+}
+);
+
 router.get("/categories", (req, res) => {
   db.query("SELECT * FROM categories", (err, result) => {
     if (err) {
