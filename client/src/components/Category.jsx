@@ -15,6 +15,7 @@ function Category() {
       if (response.data.message === "Categories fetched successfully!") {
         console.log(response.data.categories);
         setCategories(response.data.categories);
+        
       } else {
         console.log(response.data.message);
         alert(response.data.message);

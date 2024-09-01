@@ -115,5 +115,34 @@ router.get("/categories", (req, res) => {
     return res.send({ message: "Categories fetched successfully!", categories: result });
   });
 });
+router.get("/category_count", (req, res) => {
+  db.query("SELECT count(*) as Count FROM categories", (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.send({ error: "Database error" });
+    }
+    return res.send({ message: "Categories fetched successfully!", categories: result });
+  });
+});
+router.get("/admin_count", (req, res) => {
+  db.query("SELECT count(*) as Count FROM admin", (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.send({ error: "Database error" });
+    }
+    return res.send({ message: "Admin fetched successfully!", admin: result });
+  });
+});
+
+router.get("/employee_count", (req, res) => {
+  db.query("SELECT count(*) as Count FROM employees", (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.send({ error: "Database error" });
+    }
+    // console.log(result);
+    return res.send({ message: "Employees fetched successfully!", employees: result });
+  });
+});
 
 module.exports = router;
