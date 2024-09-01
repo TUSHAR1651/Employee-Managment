@@ -8,6 +8,7 @@ import Category from './components/Category';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from './components/Profile';
 import AddCategory from './components/AddCategory';
+import AddEmployee from './components/AddEmployee';
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +28,9 @@ function App() {
             {" "}
           </Route>
           <Route path="/dashboard/add_category" element={<AddCategory />}>
+            {" "}
+          </Route>
+          <Route path="/dashboard/add_employee" element={<AddEmployee />}>
             {" "}
           </Route>
         </Route>

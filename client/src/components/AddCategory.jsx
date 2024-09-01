@@ -14,7 +14,6 @@ const AddCategory = () => {
                 else {
                     alert(res.data.message);
                 }
-                
             })
             .catch((error) => {
                 console.error('Error adding category:', error);
