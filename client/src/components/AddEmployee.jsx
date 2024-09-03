@@ -53,7 +53,7 @@ const AddEmployee = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6">
-            <div className="w-full max-w-md bg-white rounded-lg border border-gray-300 shadow-lg p-6">
+            <div className="bg-white rounded-lg border border-gray-300 shadow-lg p-6">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
                     Add New Employee
                 </h2>

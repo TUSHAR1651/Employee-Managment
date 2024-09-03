@@ -1,12 +1,19 @@
 import React from 'react';
 import { Link , Outlet } from 'react-router-dom';
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
+import 'bootstrap-icons/font/bootstrap-icons.css'; 
+
+
 
 const Dashboard = () => {
+    const LogOut = () => {
+        localStorage.removeItem('token');
+        window.location.href = '/adminLogin';
+    }
+    
     return (
         <div className="flex h-screen bg-gray-200">
             {/* Sidebar */}
-            <aside className="w-64 bg-gray-800 text-white h-full p-6 shadow-lg">
+            <aside className="w-64 bg-gray-800 text-white h-full p-6 shadow-lg fixed">
                 <h1 className="text-4xl font-extrabold mb-8 text-blue-400">
                     <Link to="/dashboard">CWC</Link>
                 </h1>
@@ -40,32 +47,26 @@ const Dashboard = () => {
                     </li>
                     <li>
                         <Link
-                            to="/dashboard/profile"
-                            className="flex items-center text-gray-300 hover:text-blue-300 transition-colors duration-300 p-2 rounded-lg hover:bg-gray-700"
-                        >
-                            <i className="bi bi-person mr-3"></i>
-                            Profile
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            to="/logout"
+                            to="/adminLogin"
                             className="flex items-center text-gray-300 hover:text-blue-300 transition-colors duration-300 p-2 rounded-lg hover:bg-gray-700"
                         >
                             <i className="bi bi-box-arrow-right mr-3"></i>
-                            Logout
+                            <button onClick={LogOut}>Logout</button>
                         </Link>
                     </li>
                 </ul>
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 bg-white p-8">
-                <h2 className="text-3xl font-semibold mb-6 text-gray-800">
-                    Employee Management System
-                </h2>
-                <Outlet />
-            </main>
+            <div className="ml-64 w-full">
+                <div className="bg-gray-800 text-white p-6 shadow-lg fixed w-full">
+                    <h1 className="text-2xl font-bold mb-4">Employee Managment System</h1>
+                </div>
+                <div className='mt-24'>
+                    <Outlet />
+                </div>
+            </div>
+
         </div>
     );
 }

@@ -36,8 +36,28 @@ router.post("/adminLogin", (req, res) => {
   );
 });
 
+router.get("/admins", (req, res) => {
+  db.query("SELECT * FROM admin", (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.send({ error: "Database error" });
+    }
+    console.log(result);
+    return res.send({ message: "Admins fetched successfully!", admins: result });
+  });
 
+});
+router.delete("/delete_category/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("DELETE FROM categories WHERE id = ?", [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.send({ error: "Database error" });
+    }
+    return res.send({ message: "Category deleted successfully!" });
+  });
 
+})
 router.post("/register", (req, res) => {
   console.log(req.body);
   const { name, email, password, salary, address, category_id } = req.body;
