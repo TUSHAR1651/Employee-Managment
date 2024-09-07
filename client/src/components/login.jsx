@@ -3,6 +3,7 @@ import './login.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Login() {
     const [value, setValue] = useState({
@@ -14,8 +15,14 @@ function Login() {
     const [error , setError] = useState(null);
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log("value",value);
         axios.post("http://localhost:8000/auth/adminLogin", value).then((res) => {
-            if(res.data.message === "Login success!"){
+            if (res.data.message === "Login success!") {
+                const cres = Cookies.set('token', res.data.token, {
+                });
+                console.log("cres", cres);
+                console.log("set token",res.data.token);
+                // alert(res.data.message);
                 navigate("/Dashboard");
             }
             else {

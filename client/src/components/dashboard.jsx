@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link , Outlet } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css'; 
-
-
+import {Navigate} from 'react-router-dom'
+import Cookies from 'js-cookie';
 
 const Dashboard = () => {
     const LogOut = () => {
-        localStorage.removeItem('token');
-        window.location.href = '/adminLogin';
+        console.log("hi");
+        Cookies.remove('token');
+        Navigate('./adminLogin');
     }
     
     return (

@@ -7,7 +7,7 @@ const multer = require("multer");
 const path = require("path");
 
 router.post("/adminLogin", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { email, password } = req.body;
 
 
@@ -27,8 +27,8 @@ router.post("/adminLogin", (req, res) => {
           expiresIn: "1d",
         });
 
-        res.cookie("token", token, { httpOnly: true });
-        return res.json({ message: "Login success!" });
+        res.cookie("token", token, { httpOnly: false });
+        return res.json({ message: "Login success!", token: token });
       } else {
         return res.send({ message: "Wrong email/password!" });
       }
