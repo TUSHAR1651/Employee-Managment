@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link , Outlet } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css'; 
-import {Navigate} from 'react-router-dom'
 import Cookies from 'js-cookie';
 
 const Dashboard = () => {
     const LogOut = () => {
-        console.log("hi");
+        console.log("logoutToken" , Cookies.get('token'));
         Cookies.remove('token');
-        Navigate('./adminLogin');
+        window.location.href = '/adminLogin';
     }
     
     return (
@@ -48,6 +47,7 @@ const Dashboard = () => {
                     </li>
                     <li>
                         <Link
+                            onClick={LogOut}
                             to="/adminLogin"
                             className="flex items-center text-gray-300 hover:text-blue-300 transition-colors duration-300 p-2 rounded-lg hover:bg-gray-700"
                         >
