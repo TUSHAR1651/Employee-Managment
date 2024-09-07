@@ -1,6 +1,5 @@
-import React from 'react';
-import './login.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
+
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -10,36 +9,38 @@ function Login() {
         email: "",
         password: ""
     });
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
+
     axios.defaults.withCredentials = true;
-    const [error , setError] = useState(null);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("value",value);
-        axios.post("http://localhost:8000/auth/adminLogin", value).then((res) => {
-            if (res.data.message === "Login success!") {
-                const cres = Cookies.set('token', res.data.token, {
-                });
-                console.log("cres", cres);
-                console.log("set token",res.data.token);
-                // alert(res.data.message);
-                navigate("/Dashboard");
-            }
-            else {
-                setError(res.data.message);
-            }
-        }).then((err) => {
-            console.log(err);
-        })
-    }
+        axios.post("http://localhost:8000/auth/adminLogin", value)
+            .then((res) => {
+                if (res.data.message === "Login success!") {
+                    Cookies.set('token', res.data.token, {
+                        // Optional: Add cookie options here if needed
+                    });
+                    navigate("/Dashboard");
+                } else {
+                    setError(res.data.message);
+                }
+            })
+            .catch((err) => {
+                console.error("Error during login:", err);
+                setError("An error occurred. Please try again.");
+            });
+    };
+
     return (
-        
-        <div className="login-page">
-            <div className="login-container">
+        <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+            <div className="bg-gray-300 p-8 rounded-lg shadow-lg w-full max-w-md">
+                
                 <div className='error text-yellow-500'>
                     {error && <p>{error}</p>}
                 </div>
-                <h2 className="text-2xl font-bold mb-6 text-gray-400">Login Page</h2>
+                <h2 className="text-2xl font-bold mb-6 text-gray-800 font-sans ">Login Page</h2>
                 
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
